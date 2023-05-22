@@ -1,0 +1,15 @@
+[
+  {
+    "clientside_function": null,
+    "inputs": [
+      {
+        "id": "url",
+        "property": "pathname"
+      }
+    ],
+    "long": null,
+    "output": "page-content.children",
+    "prevent_initial_call": false,
+    "state": []
+  }
+]
