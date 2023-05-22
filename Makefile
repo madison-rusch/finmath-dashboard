@@ -14,7 +14,7 @@ html:
 	# mv 127.0.0.1:8050/_dash-dependencies 127.0.0.1:8050/_dash-dependencies.json
 	# cp modeling_short.html 127.0.0.1:8050/
 	# cp thumbnail.png 127.0.0.1:8050/
-	cp assets/* 127.0.0.1:8050/assets/
+	# cp assets/* 127.0.0.1:8050/assets/
 	ps | grep python | awk '{print $$1}' | xargs kill -9	
 
 update:
