@@ -1,6 +1,9 @@
 [
   {
-    "clientside_function": null,
+    "clientside_function": {
+      "function_name": "830ce2bb1c1858de53421d51af159529",
+      "namespace": "_dashprivate_clientside_funcs"
+    },
     "inputs": [
       {
         "id": "url",
@@ -10,6 +13,19 @@
     "long": null,
     "output": "page-content.children",
     "prevent_initial_call": false,
-    "state": []
+    "state": [
+      {
+        "id": "home-layout",
+        "property": "data"
+      },
+      {
+        "id": "FINM350-layout",
+        "property": "data"
+      },
+      {
+        "id": "FINM367-layout",
+        "property": "data"
+      }
+    ]
   }
 ]
