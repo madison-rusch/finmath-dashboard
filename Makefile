@@ -15,6 +15,7 @@ html:
 	# cp modeling_short.html 127.0.0.1:8050/
 	# cp thumbnail.png 127.0.0.1:8050/
 	# cp assets/* 127.0.0.1:8050/assets/
+	mkdir -p 127.0.0.1:8050/pages/
 	cp pages/* 127.0.0.1:8050/pages/
 	ps | grep python | awk '{print $$1}' | xargs kill -9	
 
