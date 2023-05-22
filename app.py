@@ -65,8 +65,8 @@ app.clientside_callback(
     Output('page-content', 'children'),
     Input('url', 'pathname'),
     State('home-layout', 'data'),
-    State('FINM350-layout', 'data'),
     State('FINM367-layout', 'data'),
+    State('FINM350-layout', 'data'),
 )
 
 # Run the app on localhost:8050

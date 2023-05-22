@@ -2,7 +2,7 @@
 html:
 	# Now build the app
 	export DEBUG=False && python3 app.py &
-	sleep 60
+	sleep 30
 	wget -r http://127.0.0.1:8050/ 
 	wget -r http://127.0.0.1:8050/_dash-layout 
 	wget -r http://127.0.0.1:8050/_dash-dependencies
@@ -15,6 +15,7 @@ html:
 	# cp modeling_short.html 127.0.0.1:8050/
 	# cp thumbnail.png 127.0.0.1:8050/
 	# cp assets/* 127.0.0.1:8050/assets/
+	cp pages/* 127.0.0.1:8050/pages/
 	ps | grep python | awk '{print $$1}' | xargs kill -9	
 
 update:
