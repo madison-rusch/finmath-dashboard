@@ -38,6 +38,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.DEPLOY_KEY }}
-          external_repository:  madison-rusch/finmath-dashboard.github.io
+          external_repository:  madison-rusch/finmath-dashboard
           publish_branch: main
           publish_dir: ./127.0.0.1:8050
