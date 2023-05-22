@@ -1,5 +1,4 @@
 numpy
 pandas
 dash
-sys
 dash_bootstrap_components
