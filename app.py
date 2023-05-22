@@ -6,6 +6,7 @@ from components import navbar
 import dash_bootstrap_components as dbc
 sys.path.append('..')
 
+# Github Auth token: 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
 
 app = dash.Dash(__name__, 
                 external_stylesheets=[dbc.themes.BOOTSTRAP], 
