@@ -1,0 +1,17 @@
+.app-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.app-navbar {
+    background-color: #737373;
+}
+
+.content {
+    flex: 1 0 auto;
+}
+
+.app-footer {
+    background-color: #D9D9D9;
+}

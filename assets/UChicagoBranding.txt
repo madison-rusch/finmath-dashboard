@@ -1,0 +1,11 @@
+I have placed UChicago branding below for easy reference
+
+Maroon: #800000
+Light Grey: #D9D9D9
+Grey: #A6A6A6
+Dark Grey: #737373
+
+Reference: https://uchicago.app.box.com/s/5th2zs7py5qizriam5z06sbpqlyqfied
+
+
+Icons can be found here: https://icon-sets.iconify.design/

@@ -17,7 +17,7 @@ def Navbar():
                         dbc.Col(dbc.NavbarBrand("FinMath Portfolio Dashboards", className="ms-2")),])
                     ],
             brand_href="/",
-            color="dark",
+            color="#737373",
             dark=True,
             
         ), 
