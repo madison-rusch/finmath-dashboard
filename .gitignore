@@ -1,3 +1,4 @@
 pages/__pycache__/*
 __pycache__/*
 components/__pycache__/*
+.vscode/launch.json

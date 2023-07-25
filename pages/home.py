@@ -1,15 +1,12 @@
 import dash
-import os.path
 import base64
-import datetime
 import io
-from dash import html, dcc, dash_table, Input, Output, callback, State
+from dash import html, dcc, dash_table, Input, Output, callback
 from dash_iconify import DashIconify
+import dash_bootstrap_components as dbc
 import pandas as pd
 
 dash.register_page(__name__, path='/'),
-
-portfolio_data = pd.read_excel("./data/holdings_example_2023_05_14_nocash.xlsx", sheet_name="Sheet1")
 
 layout = html.Div(
     children=[
@@ -22,38 +19,43 @@ layout = html.Div(
             Otherwise, feel free to begin your analysis with the default portfolio displayed in the table.
         '''),
         html.Br(),
-        dcc.Upload(
-            id='upload-data',
-            children=html.Div([
-                DashIconify(icon="material-symbols:upload-sharp", width=30, className="margin-right-10"),
-                html.Div("Drag and Drop or ", style={'white-space': 'pre'}), 
-                html.A('Select File', className='bold-anchor')
-                ],
-                style={'display': 'flex',
-                        'align-items': 'center',
-                        'justify-content': 'center'}),
-            style={
-                'width': '100%',
-                'height': '60px',
-                'lineHeight': '60px',
-                'borderWidth': '1px',
-                'borderStyle': 'dashed',
-                'borderRadius': '5px',
-                'textAlign': 'center',
-                'margin': '10px'
-            },
-            # Allow multiple files to be uploaded
-            multiple=False
+        dbc.Row([
+            dbc.Col(
+                dcc.Upload(
+                    id='upload-data',
+                    children=html.Div([
+                        DashIconify(icon="material-symbols:upload-sharp", width=30, className="margin-right-10"),
+                        html.Div("Drag and Drop or ", style={'white-space': 'pre'}), 
+                        html.A('Select File', className='bold-anchor')
+                        ],
+                        style={'display': 'flex',
+                                'align-items': 'center',
+                                'justify-content': 'center'}),
+                    style={
+                        'width': '100%',
+                        'height': '60px',
+                        'lineHeight': '60px',
+                        'borderWidth': '1px',
+                        'borderStyle': 'dashed',
+                        'borderRadius': '5px',
+                        'textAlign': 'center',
+                        'margin': '10px'
+                    },
+                    # Allow multiple files to be uploaded
+                    multiple=False
+                )),
+            dbc.Col(
+                dbc.Button("Continue with Default", id="button-use-default", color="primary"),
+                width="auto"
+            )],
+            align="center"
         ),
         html.Div(id='output-data-upload'),
-        dash_table.DataTable(data=portfolio_data.to_dict('records'), 
-                            page_size=30,
-                            style_cell={"width": "auto"})
     ],
         
 )
 
-def parse_contents(contents, filename, date):
+def parse_contents(contents, filename):
     content_type, content_string = contents.split(',')
 
     decoded = base64.b64decode(content_string)
@@ -72,31 +74,25 @@ def parse_contents(contents, filename, date):
         ])
 
     return html.Div([
-        html.H5(filename),
-        html.H6(datetime.datetime.fromtimestamp(date)),
-
         dash_table.DataTable(
             df.to_dict('records'),
             [{'name': i, 'id': i} for i in df.columns]
-        ),
-
-        html.Hr(),  # horizontal line
-
-        # For debugging, display the raw contents provided by the web browser
-        html.Div('Raw Content'),
-        html.Pre(contents[0:200] + '...', style={
-            'whiteSpace': 'pre-wrap',
-            'wordBreak': 'break-all'
-        })
+        )
     ])
 
-@callback(Output('output-data-upload', 'children'),
-              Input('upload-data', 'contents'),
-              State('upload-data', 'filename'),
-              State('upload-data', 'last_modified'))
-def update_output(list_of_contents, list_of_names, list_of_dates):
-    if list_of_contents is not None:
-        children = [
-            parse_contents(c, n, d) for c, n, d in
-            zip(list_of_contents, list_of_names, list_of_dates)]
+@callback(Output('output-data-upload', 'children', allow_duplicate=True),
+            [Input('upload-data', 'contents'),
+               Input('upload-data', 'filename')],
+            prevent_initial_call=True)
+def update_output(contents, filename):
+    if contents is not None:
+        children = [parse_contents(contents, filename)]
         return children
+    
+@callback(
+    Output('output-data-upload', 'children'),
+    Input('button-use-default', 'n_clicks'),
+    prevent_initial_call=True)
+def update_output_to_default(n_clicks):
+    portfolio_data = pd.read_excel("./data/holdings_example_2023_05_14_nocash.xlsx", sheet_name="Sheet1")
+    return dash_table.DataTable(portfolio_data.to_dict('records'))
